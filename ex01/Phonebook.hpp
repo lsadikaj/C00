@@ -1,30 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   megaphone.cpp                                      :+:      :+:    :+:   */
+/*   Phonebook.hpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lsadikaj <lsadikaj@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/01 17:10:50 by lsadikaj          #+#    #+#             */
-/*   Updated: 2025/09/03 15:39:55 by lsadikaj         ###   ########.fr       */
+/*   Created: 2025/09/03 16:01:02 by lsadikaj          #+#    #+#             */
+/*   Updated: 2025/09/05 16:16:39 by lsadikaj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <iostream>
-#include <cctype>
+#ifndef PHONEBOOK_HPP
+# define PHONEBOOK_HPP
 
-int	main(int ac, char *av[])
+# include "Contact.hpp"
+# include <iostream>
+
+class Phonebook
 {
-	if (ac < 2)
-		std::cout << "* LOUD AND UNBEARABLE FEEDBACK NOISE *" << std::endl;
-	else
-	{
-		for (int i = 1; i < ac; i++)
-		{
-			for (int j = 0; av[i][j]; j++)
-				std::cout << (unsigned char)std::toupper(av[i][j]);
-		}
-		std::cout << std::endl;
-	}
-	return (0);
-}
+	private:
+		Contact	_contact[8];
+		int		_current_i;
+		bool	_time_to_exit;
+
+	public:
+		Phonebook();
+		~Phonebook();
+		bool	getTimeToExit() const;
+		void	setTimeToExit();
+		int		getCurrentI() const;
+		void	setCurrentI();
+		void	add();
+		void	search();
+		void	exit();
+};
+
+#endif
