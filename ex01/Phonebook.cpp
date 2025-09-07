@@ -6,7 +6,7 @@
 /*   By: lsadikaj <lsadikaj@student.42lausanne.ch>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 16:14:25 by lsadikaj          #+#    #+#             */
-/*   Updated: 2025/09/06 15:39:52 by lsadikaj         ###   ########.fr       */
+/*   Updated: 2025/09/07 15:43:52 by lsadikaj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,71 @@ void	Phonebook::add()
 
 void	Phonebook::search()
 {
-	
+	int	valid_contact = 0;
+
+	for (int i = 0; i < 8; i++)
+	{
+		if (!_contact[i].getFirstName().empty())
+			valid_contact++;
+	}
+	if (valid_contact == 0)
+	{
+		std::cout << "The phonebook is empty, try 'ADD' first" << std::endl;
+		return ;
+	}
+
+    std::cout << std::setw(10) << std::right << "Index" << "|";
+    std::cout << std::setw(10) << std::right << "First name" << "|";
+    std::cout << std::setw(10) << std::right << "Last name" << "|";
+    std::cout << std::setw(10) << std::right << "Nickname" << std::endl;
+
+	for (int i = 0; i < 8; i++)
+	{
+		if (!_contact[i].getFirstName().empty())
+		{
+			std::string	first_name(_contact[i].getFirstName());
+			std::string	last_name(_contact[i].getLastName());
+			std::string	nickname(_contact[i].getNickName());
+			
+			if (first_name.length() > 10)
+				first_name = first_name.substr(0, 9) + ".";
+			if (last_name.length() > 10)
+				last_name = last_name.substr(0, 9) + ".";
+			if (nickname.length() > 10)
+				nickname = nickname.substr(0, 9) + ".";
+
+			std::cout << std::setw(10) << std::right << i << "|";
+			std::cout << std::setw(10) << std::right << first_name << "|";
+			std::cout << std::setw(10) << std::right << last_name << "|";
+			std::cout << std::setw(10) << std::right << nickname << std::endl;
+		}
+	}
+	int		choosen_index;
+	bool	valid_choice = false;
+
+	while (!valid_choice)
+	{
+		std::cout << "Enter the index of the contact you want to display : ";
+		std::cin >> choosen_index;
+
+		if (choosen_index < 0 || choosen_index >= 8)
+		{
+			std::cout << "Use a index between 0 and 7" << std::endl;
+			continue ;
+		}
+		if (_contact[choosen_index].getFirstName().empty())
+		{
+			std::cout << "Try a smaller index, that appears in the array" << std::endl;
+			continue ;
+		}
+		valid_choice = true;
+	}
+	std::cout << "=== Contact infos ====" << std::endl;
+	std::cout << "First name : " << _contact[choosen_index].getFirstName() << std::endl;
+	std::cout << "Last name : " << _contact[choosen_index].getLastName() << std::endl;
+	std::cout << "Nickname : " << _contact[choosen_index].getNickName() << std::endl;
+	std::cout << "Phone number : " << _contact[choosen_index].getPhoneNumber() << std::endl;
+	std::cout << "Darkest secret : " << _contact[choosen_index].getDarkestSecret() << std::endl;
 }
 
 void	Phonebook::exit()
